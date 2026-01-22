@@ -11,8 +11,8 @@
 
 <body style="margin:10px; font-family:Arial;">
 
-  <label>Selecione a superfície:</label>
-  <select onchange="document.getElementById('viewer').src = this.value">
+  <label for="surface-select">Selecione a superfície:</label>
+  <select id="surface-select">
     <option value="model/topo_Sal.glb">Topo do Sal</option>
     <option value="model/base_Sal.glb">Base do Sal</option>
     <option value="model/falha_principal.glb">Falha Principal</option>
@@ -24,6 +24,15 @@
     camera-controls
     style="width:100%; height:90vh;">
   </model-viewer>
+
+  <script>
+    const select = document.getElementById('surface-select');
+    const viewer = document.getElementById('viewer');
+
+    select.addEventListener('change', () => {
+      viewer.src = select.value;
+    });
+  </script>
 
 </body>
 </html>
