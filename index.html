@@ -12,9 +12,10 @@
     body {
       margin: 0;
       overflow: hidden;
+      font-family: Arial, sans-serif;
     }
 
-    /* eixo fixo no canto */
+    /* Eixo fixo no canto inferior direito */
     #axis {
       position: absolute;
       bottom: 20px;
@@ -24,7 +25,7 @@
       pointer-events: none; /* bloqueia interação */
     }
 
-     /* Mapa fixo no canto superior direito */
+    /* Mapa fixo no canto superior direito */
     #map {
       position: absolute;
       top: 20px;
@@ -35,11 +36,18 @@
       padding: 5px;
       box-shadow: 0 0 5px rgba(0,0,0,0.2);
       z-index: 10;  /* garante que fique acima da superfície 3D */
+      overflow: hidden;
     }
-    
+
     #map img {
       width: 100%;
       display: block;
+      transition: transform 0.2s ease; /* animação suave do zoom */
+      cursor: grab;
+    }
+
+    #map img:active {
+      cursor: grabbing;
     }
 
     #map small {
@@ -48,13 +56,14 @@
       margin-top: 3px;
       font-size: 12px;
       color: #333;
-      font-weight: bold; /* negrito */
+      font-weight: bold;
+    }
   </style>
 </head>
 
 <body>
-  
- <!-- Seleção de superfície -->
+
+  <!-- Seleção de superfície -->
   <p style="padding:10px;"><b>Escolha a superfície:</b></p>
 
   <select
@@ -65,7 +74,7 @@
     <option value="model/Fundo_do_mar.glb">Fundo do Mar</option>
   </select>
 
-  <!-- SUPERFÍCIE -->
+  <!-- SUPERFÍCIE 3D -->
   <model-viewer
     id="surface"
     src="model/topo_Sal.glb"
@@ -84,11 +93,28 @@
     disable-pan>
   </model-viewer>
 
+  <!-- MAPA FIXO -->
+  <div id="map">
+    <img src="loc.png" alt="Mapa de localização">
+    <small>Mapa de localização</small>
+  </div>
+
+  <script>
+    // Zoom da imagem do mapa com scroll
+    const mapImg = document.querySelector('#map img');
+    let scale = 1;
+
+    mapImg.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      if (e.deltaY < 0) {
+        scale += 0.1; // aumentar zoom
+      } else {
+        scale = Math.max(0.5, scale - 0.1); // diminuir, mínimo 0.5x
+      }
+      mapImg.style.transform = `scale(${scale})`;
+    });
+  </script>
+
 </body>
 </html>
 
-<!-- MAPA FIXO -->
-<div id="map">
-  <img src="loc.png" alt="Mapa de localização">
-  <small>Mapa de localização</small>
-</div>
