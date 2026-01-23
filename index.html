@@ -9,82 +9,39 @@
   </script>
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    /* Container geral */
-    #container {
+    .container {
       position: relative;
       width: 100%;
-      height: 100vh;
+      height: 80vh;
     }
 
-    /* Menu */
-    #menu {
+    model-viewer {
       position: absolute;
-      top: 15px;
-      left: 15px;
-      background: white;
-      padding: 8px;
-      border-radius: 6px;
-      z-index: 10;
-    }
-
-    /* Viewer principal */
-    #viewer {
       width: 100%;
       height: 100%;
     }
 
-    /* Mini viewer dos eixos */
-    #axes {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      width: 220px;
-      height: 220px;
-      background: white;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      z-index: 10;
+    #eixos {
+      pointer-events: none; /* não bloqueia o mouse */
     }
   </style>
 </head>
 
 <body>
 
-<div id="container">
+<p><b>Escolha a superfície:</b></p>
 
-  <!-- MENU -->
-  <div id="menu">
-    <b>Escolha a superfície:</b><br>
-    <select onchange="document.getElementById('viewer').src = this.value">
-      <option value="model/topo_Sal.glb">Topo do Sal</option>
-      <option value="model/Fundo_do_mar.glb">Fundo do Mar</option>
-    </select>
-  </div>
+<select onchange="document.getElementById('superficie').src = this.value">
+  <option value="model/topo_Sal.glb">Topo do Sal</option>
+  <option value="model/Fundo_do_mar.glb">Fundo do Mar</option>
+</select>
 
-  <!-- SUPERFÍCIE PRINCIPAL -->
+<div class="container">
+
+  <!-- Superfície -->
   <model-viewer
-    id="viewer"
+    id="superficie"
     src="model/topo_Sal.glb"
-    camera-controls
-    style="width:100%; height:100%;">
-  </model-viewer>
+    camera-controls>
+  </
 
-  <!-- EIXOS XYZ 3D (FIXOS NO CANTO) -->
-  <model-viewer
-    id="axes"
-    src="model/eixos_xyz.glb"
-    camera-controls
-    interaction-prompt="none"
-    disable-zoom
-    auto-rotate>
-  </model-viewer>
-
-</div>
-
-</body>
-</html>
