@@ -67,7 +67,7 @@
   <!-- Seleção de superfície -->
   <div style="padding:10px;">
     <b>Escolha a superfície:</b>
-    <select onchange="document.getElementById('surface').src = this.value">
+    <select onchange="document.getElementById('surface').setAttribute('src', this.value)">
       <option value="model/topo_Rifte.glb">Topo do Rifte</option>
       <option value="model/topo_Sal.glb">Topo do Sal</option>
       <option value="model/topo_Albiano.glb">Topo do Albiano</option>
