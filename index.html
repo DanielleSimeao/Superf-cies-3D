@@ -23,11 +23,37 @@
       height: 200px;
       pointer-events: none; /* bloqueia interação */
     }
+
+     /* Mapa fixo no canto superior direito */
+    #map {
+      position: absolute;
+      top: 20px;
+      right: 20px;  /* canto superior direito */
+      width: 220px;
+      border: 1px solid #ccc;
+      background: white;
+      padding: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      z-index: 10;  /* garante que fique acima da superfície 3D */
+    }
+    
+    #map img {
+      width: 100%;
+      display: block;
+    }
+
+    #map small {
+      display: block;
+      text-align: center;
+      margin-top: 3px;
+      font-size: 12px;
+      color: #333;
   </style>
 </head>
 
 <body>
-
+  
+ <!-- Seleção de superfície -->
   <p style="padding:10px;"><b>Escolha a superfície:</b></p>
 
   <select
@@ -59,6 +85,7 @@
 
 </body>
 </html>
+
 <!-- MAPA FIXO -->
 <div id="map">
   <img src="fig/localizacao.png" alt="Localização da área de estudo">
