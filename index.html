@@ -15,7 +15,7 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Eixo fixo no canto inferior direito */
+    /* Eixo XYZ fixo no canto inferior direito */
     #axis {
       position: absolute;
       bottom: 20px;
@@ -29,20 +29,21 @@
     #map {
       position: absolute;
       top: 20px;
-      right: 20px;  /* canto superior direito */
-      width: 220px;
+      right: 20px;       /* canto superior direito */
+      width: 300px;      /* tamanho maior */
+      height: auto;
       border: 1px solid #ccc;
       background: white;
       padding: 5px;
       box-shadow: 0 0 5px rgba(0,0,0,0.2);
-      z-index: 10;  /* garante que fique acima da superfície 3D */
+      z-index: 10;
       overflow: hidden;
     }
 
     #map img {
       width: 100%;
       display: block;
-      transition: transform 0.2s ease; /* animação suave do zoom */
+      transition: transform 0.2s ease; /* animação do zoom */
       cursor: grab;
     }
 
@@ -53,7 +54,7 @@
     #map small {
       display: block;
       text-align: center;
-      margin-top: 3px;
+      margin-bottom: 5px;  /* espaço entre legenda e imagem */
       font-size: 12px;
       color: #333;
       font-weight: bold;
@@ -64,15 +65,13 @@
 <body>
 
   <!-- Seleção de superfície -->
-  <p style="padding:10px;"><b>Escolha a superfície:</b></p>
-
-  <select
-    style="margin:10px;"
-    onchange="document.getElementById('surface').src = this.value">
-
-    <option value="model/topo_Sal.glb">Topo do Sal</option>
-    <option value="model/Fundo_do_mar.glb">Fundo do Mar</option>
-  </select>
+  <div style="padding:10px;">
+    <b>Escolha a superfície:</b>
+    <select onchange="document.getElementById('surface').src = this.value">
+      <option value="model/topo_Sal.glb">Topo do Sal</option>
+      <option value="model/Fundo_do_mar.glb">Fundo do Mar</option>
+    </select>
+  </div>
 
   <!-- SUPERFÍCIE 3D -->
   <model-viewer
@@ -95,21 +94,21 @@
 
   <!-- MAPA FIXO -->
   <div id="map">
-    <img src="loc.png" alt="Mapa de localização">
     <small>Mapa de localização</small>
+    <img src="loc.png" alt="Mapa de localização">
   </div>
 
+  <!-- SCRIPT DO ZOOM -->
   <script>
-    // Zoom da imagem do mapa com scroll
     const mapImg = document.querySelector('#map img');
     let scale = 1;
 
     mapImg.addEventListener('wheel', function(e) {
       e.preventDefault();
       if (e.deltaY < 0) {
-        scale += 0.1; // aumentar zoom
+        scale += 0.1; // zoom in
       } else {
-        scale = Math.max(0.5, scale - 0.1); // diminuir, mínimo 0.5x
+        scale = Math.max(0.5, scale - 0.1); // zoom out mínimo 0.5x
       }
       mapImg.style.transform = `scale(${scale})`;
     });
@@ -117,4 +116,5 @@
 
 </body>
 </html>
+
 
